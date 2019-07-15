@@ -1,0 +1,23 @@
+{
+  "name": "backbone-test-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/http-server/bin/http-server -p 80",
+    "serve": "node api/server.js"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "express": "^4.16.4",
+    "http-errors": "~1.6.3",
+    "http-server": "^0.8.5",
+    "md5": "^2.2.1",
+    "morgan": "~1.9.1",
+    "sqlite3": "^4.0.9"
+  },
+  "description": "test project",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "vmartynenko",
+  "license": "ISC"
+}

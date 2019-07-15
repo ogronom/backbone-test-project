@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Sources: test UI with Backbone.js, Victoria</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <h1>
+                    Sources
+                </h1>
+
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+
+            <div class="row">
+                <div id="header" class="col-12 header"></div>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Name</th>
+                    <th>Domain</th>
+                    <th>Username</th>
+                    <th>Added date</th>
+                    <th>Last updated date</th>
+                    <th>Tags</th>
+                </tr>
+                </thead>
+                <tbody class="sources-list"></tbody>
+            </table>
+
+
+
+<!--            <div id="sidebar"></div>-->
+
+<!--            <div id="content">-->
+<!--                placeholder-->
+
+<!--            </div>-->
+
+
+        </div>
+
+        <nav class="navbar navbar-bottom">
+            Aut viam inveniam aut faciam. <br>
+            &copy; 2019
+        </nav>
+    </div>
+
+    <script type="text/template" class="sources-list-template">
+        <td><span class="ip"><%= ip %></span></td>
+        <td><span class="name"><%= name %></span></td>
+        <td><span class="domain"><%= domain %></span></td>
+        <td><span class="username"><%= username %></span></td>
+        <td><span class="addeddate"><%= addeddate %></span></td>
+        <td><span class="lastmodifieddate"><%= lastmodifieddate %></span></td>
+        <td><span class="tags"><%= tags.toString() %></span></td>
+    </script>
+
+    <script type = "text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script>
+    <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"></script>
+    <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="javascripts/utils.js"></script>
+    <script src="javascripts/models/sourcemodel.js"></script>
+    <script src="javascripts/views/header.js"></script>
+    <script src="javascripts/views/sourcelist.js"></script>
+<!--    <script src="javascripts/views/sourcedetails.js"></script>-->
+    <script src="javascripts/main.js"></script>
+
+</body>
+</html>
