@@ -1,3 +1,5 @@
+var existingIPs = new Array();
+
 Backbone.View.prototype.close = function () {
     console.log('Closing view ' + this);
     if (this.beforeClose) {
@@ -25,14 +27,26 @@ var AppRouter = Backbone.Router.extend({
 
     sourceDetails:function (id) {
         this.before(function () {
-            var source = app.sourceList.get(id);
-            app.showView('#content', new SourceView({model:source}));
+            if (app.sourceList.get(id)) {
+                var source = app.sourceList.get(id);
+                // if ( app.currentView ) app.currentView.close();
+                var view = app.showView('#content', new SourceView({model: source}));
+                view.validate();
+                $('.content').show();
+                $('.table').hide();
+                $('.header').hide();
+            }
         });
     },
 
     newSource:function () {
         this.before(function () {
-            app.showView('#content', new SourceView({model:new Source()}));
+            var view = app.showView('#content', new SourceView({model:new Source()}));
+            view.validate();
+            $('.delete').hide();
+            $('.content').show();
+            $('.table').hide();
+            $('.header').hide();
         });
     },
 
@@ -48,9 +62,23 @@ var AppRouter = Backbone.Router.extend({
         if (this.sourceList) {
             if (callback) callback();
         } else {
+            var sourceCollection = new SourceCollection();
             this.sourceList = new SourceCollection();
-            this.sourceList.fetch({success:function () {
-                    $('#sidebar').html(new SourceListView({model:app.sourceList}).render().el);
+            this.sourceList.fetch({success:function (response) {
+                    _.each(response.toJSON(), function (item) {
+                        sources.reset();
+                        _.each(item.data, function (source) {
+                            sourceCollection.add(source);
+                            existingIPs.push(source.ip);
+                        });
+                    });
+                    app.sourceList = sourceCollection;
+
+                    // if ( app.currentView ) app.currentView.close();
+                    $('.sources-list').html(new SourceListView({model:app.sourceList}).render().el);
+                    $('.content').hide();
+                    $('.table').show();
+                    $('.header').show();
                     if (callback) callback();
                 }});
         }
@@ -58,7 +86,10 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-tpl.loadTemplates(['header', 'source-details', 'source-list-item'], function () {
-    app = new AppRouter();
-    Backbone.history.start();
-});
+app = new AppRouter();
+Backbone.history.start();
+
+// tpl.loadTemplates(['header', 'source-details', 'source-list-item'], function () {
+//     app = new AppRouter();
+//     Backbone.history.start();
+// });

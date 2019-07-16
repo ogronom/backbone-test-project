@@ -17,14 +17,8 @@ app.listen(HTTP_PORT, () => console.log("Server running on port %PORT%".replace(
 
 // Allow access for localhost
 app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-
-    // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
     // Set to true if you need the website to include cookies in the requests sent
@@ -41,8 +35,6 @@ app.get("/", (req, res, next) => {
     res.json({"message":"Ok"})
 });
 
-// Other API endpoints
-
 // Get the list of sources
 app.get("/api/sources", (req, res, next) => {
     var sql = "select * from source"
@@ -52,6 +44,7 @@ app.get("/api/sources", (req, res, next) => {
             res.status(400).json({"error":err.message});
             return;
         }
+        // res.send(rows)
         res.json({
             "message":"success",
             "data":rows
@@ -68,6 +61,7 @@ app.get("/api/source/:id", (req, res, next) => {
             res.status(400).json({"error":err.message});
             return;
         }
+        // res.send(row)
         res.json({
             "message":"success",
             "data":row
@@ -103,9 +97,9 @@ var data = {
     name: req.body.name,
     domain: req.body.domain ? req.body.domain : '',
     username: req.body.username,
-    password : md5(req.body.password),
-    addeddate: now,
-    lastmodifieddate: now,
+    password : req.body.password,
+    addeddate: req.body.addeddate,
+    lastmodifieddate: req.body.lastmodifieddate,
     tags: req.body.tags
 }
 var sql ='INSERT INTO source (ip, name, domain, username, password, addeddate, lastmodifieddate) VALUES (?,?,?,?,?,?,?)'
@@ -125,14 +119,14 @@ db.run(sql, params, function (err, result) {
 
 // Update an existing user
 app.patch("/api/source/:id", (req, res, next) => {
-    var now = new Date().toLocaleString()
+    // var now = new Date().toLocaleString()
     var data = {
         ip: req.body.ip,
         name: req.body.name,
         domain: req.body.domain ? req.body.domain : '',
         username: req.body.username,
-        password : md5(req.body.password),
-        lastmodifieddate: now
+        password : req.body.password,
+        lastmodifieddate: req.body.lastmodifieddate
     }
     db.run(
         `UPDATE source set 
@@ -143,7 +137,7 @@ app.patch("/api/source/:id", (req, res, next) => {
            password = COALESCE(?,password),
            lastmodifieddate = COALESCE(?,lastmodifieddate), 
            WHERE id = ?`,
-        [data.ip, data.name, data.domain, data.username, data.password, req.params.id, req.params.lastmodifieddate],
+        [data.ip, data.name, data.domain, data.username, data.password, data.lastmodifieddate, req.params.id],
         function (err, result) {
             if (err){
                 res.status(400).json({"error": res.message})

@@ -1,7 +1,7 @@
 window.HeaderView = Backbone.View.extend({
 
     initialize:function () {
-        this.template = _.template(tpl.get('header'));
+        this.template = _.template($('.header-template').html()); // tpl.get('header'));
     },
 
     render:function (eventName) {
@@ -13,7 +13,7 @@ window.HeaderView = Backbone.View.extend({
         "click .new":"newSource"
     },
 
-    newWine:function (event) {
+    newSource:function (event) {
         app.navigate("sources/new", true);
         return false;
     }

@@ -1,7 +1,11 @@
-<td><span class="ip"><%= ip %></span></td>
+<td><a href='#sources/<%= id %>'><span class="ip"><%= ip %></span></a></td>
 <td><span class="name"><%= name %></span></td>
 <td><span class="domain"><%= domain %></span></td>
 <td><span class="username"><%= username %></span></td>
 <td><span class="addeddate"><%= addeddate %></span></td>
 <td><span class="lastmodifieddate"><%= lastmodifieddate %></span></td>
 <td><span class="tags"><%= tags.toString() %></span></td>
+<td>
+    <button class="btn btn-warning btn-sm edit-source">Edit</button>
+    <button class="btn btn-danger btn-sm delete-source">Delete</button>
+</td>

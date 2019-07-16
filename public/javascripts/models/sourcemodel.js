@@ -1,5 +1,5 @@
 var Source = Backbone.Model.extend({
-    urlRoot:'http://localhost:8000/api/sources',
+    url:'http://localhost:8000/api/source',
     defaults:{
         id:null,
         ip:"",

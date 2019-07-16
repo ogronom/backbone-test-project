@@ -22,8 +22,11 @@
         <div class="jumbotron">
 
             <div class="row">
-                <div id="header" class="col-12 header"></div>
+                <div id="header" class="col-12 header">
+                </div>
             </div>
+
+            <div id="content" class="edit-source content"></div>
 
             <table class="table table-hover">
                 <thead>
@@ -40,16 +43,6 @@
                 <tbody class="sources-list"></tbody>
             </table>
 
-
-
-<!--            <div id="sidebar"></div>-->
-
-<!--            <div id="content">-->
-<!--                placeholder-->
-
-<!--            </div>-->
-
-
         </div>
 
         <nav class="navbar navbar-bottom">
@@ -58,27 +51,93 @@
         </nav>
     </div>
 
-    <script type="text/template" class="sources-list-template">
-        <td><span class="ip"><%= ip %></span></td>
-        <td><span class="name"><%= name %></span></td>
-        <td><span class="domain"><%= domain %></span></td>
-        <td><span class="username"><%= username %></span></td>
-        <td><span class="addeddate"><%= addeddate %></span></td>
-        <td><span class="lastmodifieddate"><%= lastmodifieddate %></span></td>
-        <td><span class="tags"><%= tags.toString() %></span></td>
+
+    <script type="text/template" class="header-template">
+        <button type="submit" class="btn btn-default new">+ New  Source</button>
     </script>
+
+    <script type="text/template" class="sources-list-template">
+        <td class="edit-source"><span class="ip"><%= ip %></span></td>
+        <td class="edit-source"><span class="name"><%= name %></span></td>
+        <td class="edit-source"><span class="domain"><%= domain %></span></td>
+        <td class="edit-source"><span class="username"><%= username %></span></td>
+        <td class="edit-source"><span class="addeddate"><%= addeddate %></span></td>
+        <td class="edit-source"><span class="lastmodifieddate"><%= lastmodifieddate %></span></td>
+        <td class="edit-source"><span class="tags"><%= tags.toString() %></span></td>
+    </script>
+
+    <script type="text/template" class="source-details-template">
+        <div class="form-left-col">
+                <div class="form-group">
+                    <label for="sourceIp">IP:</label>
+                    <div class="row">
+                        <input id="sourceIp" class="form-control col-5" name="ip" type="text" value="<%= ip %>" placeholder="0.0.0.0" required />
+                        <span class="col-6">
+                            <div class="wrong-format-ip validation-message">Please provide IPv4 IP: 0.0.0.0 to 255.255.255.255</div>
+                            <div class="duplicate-ip validation-message">This IP already exists in the database.</div>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <div class="row">
+                        <input type="text" class="form-control col-5"  id="name" name="name" value="<%= name %>" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="domain">Domain:</label>
+                    <div class="row">
+                        <input type="text" class="form-control col-5"  id="domain" name="domain" value="<%= domain %>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <div class="row">
+                        <input type="text" class="form-control col-5"  id="username" name="username" value="<%= username %>" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row margin-left-15">
+                        <label for="password" class="col-5">Password:</label>
+                        <span class="col-1"></span>
+                        <label for="password2" class="col-6">Confirm password:</label>
+                    </div>
+                    <div class="row">
+                        <input type="password" class="form-control col-5"  id="password" name="password"  value="<%= password %>" required />
+                        <span class="col-1"></span>
+                        <input type="password" class="form-control col-5"  id="password2" name="password2"  required />
+                        <span class="col-1"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                <label>Tags:</label>
+                placeholder for tags
+                </div>
+
+                <button class="btn btn-success save" disabled>Save</button>
+                <button class="btn btn-danger cancel">Cancel</button>
+                <button class="btn btn-danger delete">Delete</button>
+        </div>
+    </script>
+
 
     <script type = "text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script>
     <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"></script>
     <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.11.0/js/md5.min.js"></script>
 
-    <script src="javascripts/utils.js"></script>
+<!--    <script src="javascripts/utils.js"></script>-->
     <script src="javascripts/models/sourcemodel.js"></script>
     <script src="javascripts/views/header.js"></script>
     <script src="javascripts/views/sourcelist.js"></script>
-<!--    <script src="javascripts/views/sourcedetails.js"></script>-->
+    <script src="javascripts/views/sourcedetails.js"></script>
     <script src="javascripts/main.js"></script>
 
 </body>
