@@ -82,3 +82,6 @@ td.edit-source {
   color: black;
   cursor: default;
 }
+.search {
+  border: #77B7FF 2px solid;
+}

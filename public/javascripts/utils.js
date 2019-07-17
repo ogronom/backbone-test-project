@@ -11,26 +11,49 @@ function setPage(page) {
     setListView();
 }
 
-function filter(collectiion) {
-
-}
-
-function paginate(collection) {
-    var minItem = ( currentPage - 1 )*perPage;
-    var maxItem = currentPage*perPage;
+function filter() {
+    var collection = app.sourceList;
     var pageCollection = new SourceCollection();
+
+    var filterIP =  $('#filterIP').val();
+    var filterName =  $('#filterName').val();
+    var filterTags =  $('#filterTags').val();
 
     for (var i=0; i<collection.length; i++) {
         var item = collection.models[i];
-        var id = item.get('id');
-        if ( i >= minItem && i < maxItem ) {
-            $('.id'+id).parent().parent().show();
+        var ip = item.get('ip');
+        var name = item.get('name');
+        var tags = item.get('tags') ? item.get('tags') : "";
+
+        if ( (!filterIP || ip.includes(filterIP)) && (!filterName || name.includes(filterName)) && (!filterTags || tags.includes(filterTags))) {
             pageCollection.add(item);
-        } else {
-            $('.id'+id).parent().parent().hide();
         }
     }
-    displayPagination(collection);
+    paginate(pageCollection);
+
+}
+
+function paginate(filteredCollection) {
+    var minItem = ( currentPage - 1 )*perPage;
+    var maxItem = currentPage*perPage;
+    var collection = app.sourceList;
+    var pageCollection = new SourceCollection();
+
+    // Hide all to start with
+    for (var i=0; i<collection.length; i++) {
+        var id = collection.models[i].get('id');
+        $('.id' + id).parent().parent().hide();
+    }
+
+    for ( var i=0; i<filteredCollection.length; i++ ) {
+        if ( i >= minItem && i < maxItem ) {
+            var item = filteredCollection.models[i];
+            var id = item.get('id');
+            $('.id' + id).parent().parent().show();
+            pageCollection.add(item);
+        }
+    }
+    displayPagination(filteredCollection);
     return pageCollection;
 }
 
@@ -89,7 +112,7 @@ function setListView() {
     $('.content').hide();
     $('.table').show();
     $('.header-row').show();
-    paginate(app.sourceList);
+    filter();
 }
 
 tpl = {

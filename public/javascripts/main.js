@@ -68,6 +68,12 @@ var AppRouter = Backbone.Router.extend({
 app = new AppRouter();
 Backbone.history.start();
 
+$(document).ready(function() {
+    setTimeout(function() {
+        filter();
+    }, 300);
+});
+
 // tpl.loadTemplates(['header', 'source-details', 'source-list-item'], function () {
 //     app = new AppRouter();
 //     Backbone.history.start();

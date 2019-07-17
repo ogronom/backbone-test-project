@@ -1,0 +1,15 @@
+{
+  "spec_dir": "spec",
+  "spec_files": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "../../public/javascript/models/sourcemodel.js",
+    "../../node_modules/backbone/backbone.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js",
+    "helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": true
+}
