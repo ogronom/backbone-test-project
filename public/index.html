@@ -22,8 +22,21 @@
         <div class="jumbotron">
 
             <div class="row">
-                <div id="header" class="col-12 header">
+                <div class="form-group col-3">
+<!--                    <label for="filterIP"></label>-->
+                    <input type="text" class="form-control" id="filterIP" placeholder="Search for IP" />
                 </div>
+                <div class="form-group col-3">
+<!--                    <label for="filterName"></label>-->
+                    <input type="text" class="form-control" id="filterName" placeholder="Search for name">
+                </div>
+                <div class="form-group col-3">
+<!--                    <label for="filterTags"></label>-->
+                    <input type="text" class="form-control" id="filterTags" placeholder="Search for tags">
+                </div>
+
+                <div id="header" class="col-3 header"></div>
+
             </div>
 
             <div id="content" class="edit-source content"></div>
@@ -43,6 +56,8 @@
                 <tbody class="sources-list"></tbody>
             </table>
 
+            <div class="pagination"></div>
+
         </div>
 
         <nav class="navbar navbar-bottom">
@@ -57,7 +72,7 @@
     </script>
 
     <script type="text/template" class="sources-list-template">
-        <td class="edit-source"><span class="ip"><%= ip %></span></td>
+        <td class="edit-source"><span class="ip id<%= id %>"><%= ip %></span></td>
         <td class="edit-source"><span class="name"><%= name %></span></td>
         <td class="edit-source"><span class="domain"><%= domain %></span></td>
         <td class="edit-source"><span class="username"><%= username %></span></td>

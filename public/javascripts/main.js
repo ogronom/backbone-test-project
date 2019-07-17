@@ -1,5 +1,5 @@
 Backbone.View.prototype.close = function () {
-    console.log('Closing view ' + this);
+    // console.log('Closing view ' + this);
     if (this.beforeClose) {
         this.beforeClose();
     }
@@ -53,19 +53,9 @@ var AppRouter = Backbone.Router.extend({
         if (this.sourceList) {
             if (callback) callback();
         } else {
-            var sourceCollection = new SourceCollection();
             this.sourceList = new SourceCollection();
             this.sourceList.fetch({success:function (response) {
-                    // sources.reset();
-                    _.each(response.toJSON(), function (item) {
-                        // sourceCollection.add(item);
-                        existingIPs.push(item.ip);
-                        var tagArray = getTagsArrayFromString(item.tags);
-                        addTagsArrayToExistingTags(tagArray);
-                    });
-                    // app.sourceList = sourceCollection;
-                    updateTypeAhead();
-
+                    updateGlobalParameters();
                     $('.sources-list').html(new SourceListView({model:app.sourceList}).render().el);
                     setListView();
                     if (callback) callback();

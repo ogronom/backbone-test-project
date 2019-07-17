@@ -1,7 +1,6 @@
 var SourceView = Backbone.View.extend({
 
     initialize:function () {
-
         this.template = _.template($('.source-details-template').html()); // _.template(tpl.get('source-details'));
         this.model.bind("change", this.render, this);
     },
@@ -21,7 +20,7 @@ var SourceView = Backbone.View.extend({
 
     validate:function () {
         var formValid = true;
-        formValid = validateIP(this.model.isNew()) && formValid;
+        formValid = validateIP(this.model.isNew(), this.model.get('ip')) && formValid;
         formValid = validateElValueNotNull('#name') && formValid;
         formValid = validateElValueNotNull('#username') && formValid;
         formValid = validateElValueNotNull('#password') && formValid;
@@ -49,7 +48,6 @@ var SourceView = Backbone.View.extend({
         });
 
         if (this.model.isNew()) {
-            console.log("INFO: New model save");
             this.model.set({
                 addeddate:now
             });
@@ -64,10 +62,11 @@ var SourceView = Backbone.View.extend({
                 }
             });
         } else {
-            console.log("INFO: Existing model save");
             this.model.save(null, {type: 'PATCH'});
         }
+        this.model.set({ id: app.sourceList.length });
         app.navigate('', true);
+        updateGlobalParameters();
         setListView();
         return false;
     },
@@ -79,6 +78,7 @@ var SourceView = Backbone.View.extend({
             }
         });
         app.navigate('', true);
+        updateGlobalParameters();
         setListView();
         return false;
     },

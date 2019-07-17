@@ -1,6 +1,46 @@
+var perPage = 25;
+var currentPage = 1;
+var totalPages = 1;
+
 var existingIPs = [];
 var existingTags = [];
 var typeAheadSrc = [];
+
+function setPage(page) {
+    currentPage = page;
+    setListView();
+}
+
+function paginate(collection) {
+    var minItem = ( currentPage - 1 )*perPage;
+    var maxItem = currentPage*perPage;
+    var pageCollection = new SourceCollection();
+
+    for (var i=0; i<collection.length; i++) {
+        var item = collection.models[i];
+        var id = item.get('id');
+        if ( i >= minItem && i < maxItem ) {
+            $('.id'+id).parent().parent().show();
+            pageCollection.add(item);
+        } else {
+            $('.id'+id).parent().parent().hide();
+        }
+    }
+    displayPagination(collection);
+    return pageCollection;
+}
+
+function displayPagination(collection) {
+    $('.pagination').html('');
+    totalPages = Math.floor(collection.length / perPage );
+    if ( collection.length % perPage ) totalPages += 1;
+    for (var i=1; i<=totalPages; i++) {
+        var active = i==currentPage ? ' activePage' : '';
+        var pageNumItem = "<span class='page"+ active + "' onclick='setPage("+i+")'>" + i + "</span>";
+        $('.pagination').append(pageNumItem);
+        $('.pagination').show();
+    }
+}
 
 function getTagsArrayFromString(str) {
     return  str ? str.split(", ") : [];
@@ -19,6 +59,16 @@ function updateTypeAhead() {
     }
 }
 
+function updateGlobalParameters() {
+    existingIPs = [];
+    _.each(app.sourceList.models, function(model) {
+        existingIPs.push(model.get('ip'));
+        var tagArray = getTagsArrayFromString(model.get('tags'));
+        addTagsArrayToExistingTags(tagArray);
+    });
+    updateTypeAhead();
+}
+
 function setDetailsView(view) {
     if (view) view.validate();
     $('.typeahead').typeahead({source: typeAheadSrc});
@@ -27,12 +77,15 @@ function setDetailsView(view) {
     $('.header').hide();
     $('.wrong-format-ip').hide();
     $('.duplicate-ip').hide();
+    $('.pagination').hide();
+
 }
 
 function setListView() {
     $('.content').hide();
     $('.table').show();
     $('.header').show();
+    paginate(app.sourceList);
 }
 
 tpl = {

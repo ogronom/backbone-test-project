@@ -29,6 +29,7 @@ var SourceListView = Backbone.View.extend({
         var self = this;
         this.model.bind("add", function (source) {
             $(self.el).append(new SourceListItemView({model:source}).render().el);
+            updateGlobalParameters();
         });
         this.model.fetch({
             success: function (response) {
@@ -46,6 +47,8 @@ var SourceListView = Backbone.View.extend({
         _.each(this.model.toArray(), function (source) {
             self.$el.append((new SourceListItemView({model: source})).render().$el);
         });
+        setListView();
+        updateGlobalParameters();
         return this;
     }
 });

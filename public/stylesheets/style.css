@@ -16,7 +16,7 @@ a {
   color: #FFF;
 }
 .new {
-  float: left;
+  float: right;
 }
 .header {
   margin-bottom: 15px;
@@ -56,4 +56,26 @@ td.edit-source {
 .validation-message {
   font-size: 12px;
   color: red;
+}
+.pagination {
+  display: block;
+  text-align: center;
+}
+.page {
+  color: grey;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.page:hover {
+  color: blue;
+  font-weight: bold;
+  cursor: pointer;
+}
+.activePage {
+  color: black;
+  font-weight: bold;
+}
+.activePage:hover {
+  color: black;
+  cursor: default;
 }

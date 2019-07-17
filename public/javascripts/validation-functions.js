@@ -1,4 +1,4 @@
-function validateIP(modelNew) {
+function validateIP(modelNew, ip) {
     var valid = true;
     var pattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
@@ -15,6 +15,9 @@ function validateIP(modelNew) {
     }
     // IP unique
     if (modelNew && existingIPs.includes($('#sourceIp').val())) {
+        valid = false;
+        $('.duplicate-ip').show();
+    } else if (!modelNew && existingIPs.includes($('#sourceIp').val()) && $('#sourceIp').val()!=ip) {
         valid = false;
         $('.duplicate-ip').show();
     } else {
