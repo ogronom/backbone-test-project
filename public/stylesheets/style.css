@@ -50,6 +50,9 @@ td.edit-source {
 .form-control {
   border-left: green 3px solid;
 }
+.form-group {
+  margin-bottom: 15px;
+}
 .invalid {
   border-left: red 3px solid !important;
 }

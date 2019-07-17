@@ -11,6 +11,10 @@ function setPage(page) {
     setListView();
 }
 
+function filter(collectiion) {
+
+}
+
 function paginate(collection) {
     var minItem = ( currentPage - 1 )*perPage;
     var maxItem = currentPage*perPage;
@@ -74,7 +78,7 @@ function setDetailsView(view) {
     $('.typeahead').typeahead({source: typeAheadSrc});
     $('.content').show();
     $('.table').hide();
-    $('.header').hide();
+    $('.header-row').hide();
     $('.wrong-format-ip').hide();
     $('.duplicate-ip').hide();
     $('.pagination').hide();
@@ -84,7 +88,7 @@ function setDetailsView(view) {
 function setListView() {
     $('.content').hide();
     $('.table').show();
-    $('.header').show();
+    $('.header-row').show();
     paginate(app.sourceList);
 }
 
