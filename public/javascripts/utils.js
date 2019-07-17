@@ -1,3 +1,40 @@
+var existingIPs = [];
+var existingTags = [];
+var typeAheadSrc = [];
+
+function getTagsArrayFromString(str) {
+    return  str ? str.split(", ") : [];
+}
+
+function addTagsArrayToExistingTags(tagArray) {
+    _.each(tagArray, function (tag) {
+        if ( !existingTags.includes(tag) ) existingTags.push(tag);
+    });
+}
+
+function updateTypeAhead() {
+    typeAheadSrc = [];
+    for (var i=0; i<existingTags.length; i++) {
+        typeAheadSrc.push({id: "id"+i, name: existingTags[i]});
+    }
+}
+
+function setDetailsView(view) {
+    if (view) view.validate();
+    $('.typeahead').typeahead({source: typeAheadSrc});
+    $('.content').show();
+    $('.table').hide();
+    $('.header').hide();
+    $('.wrong-format-ip').hide();
+    $('.duplicate-ip').hide();
+}
+
+function setListView() {
+    $('.content').hide();
+    $('.table').show();
+    $('.header').show();
+}
+
 tpl = {
 
     // Hash of preloaded templates for the app

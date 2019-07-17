@@ -1,5 +1,6 @@
 var Source = Backbone.Model.extend({
-    url:'http://localhost:8000/api/source',
+    urlRoot:'http://localhost:8000/api/sources',
+    idAttribute: 'id',
     defaults:{
         id:null,
         ip:"",
@@ -9,7 +10,7 @@ var Source = Backbone.Model.extend({
         password:"",
         addeddate:"",
         lastmodifieddate:"",
-        tags:[]
+        tags:""
     }
 });
 

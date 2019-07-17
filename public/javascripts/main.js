@@ -1,5 +1,3 @@
-var existingIPs = new Array();
-
 Backbone.View.prototype.close = function () {
     console.log('Closing view ' + this);
     if (this.beforeClose) {
@@ -29,12 +27,8 @@ var AppRouter = Backbone.Router.extend({
         this.before(function () {
             if (app.sourceList.get(id)) {
                 var source = app.sourceList.get(id);
-                // if ( app.currentView ) app.currentView.close();
                 var view = app.showView('#content', new SourceView({model: source}));
-                view.validate();
-                $('.content').show();
-                $('.table').hide();
-                $('.header').hide();
+                setDetailsView(view);
             }
         });
     },
@@ -42,11 +36,8 @@ var AppRouter = Backbone.Router.extend({
     newSource:function () {
         this.before(function () {
             var view = app.showView('#content', new SourceView({model:new Source()}));
-            view.validate();
             $('.delete').hide();
-            $('.content').show();
-            $('.table').hide();
-            $('.header').hide();
+            setDetailsView(view);
         });
     },
 
@@ -65,20 +56,18 @@ var AppRouter = Backbone.Router.extend({
             var sourceCollection = new SourceCollection();
             this.sourceList = new SourceCollection();
             this.sourceList.fetch({success:function (response) {
+                    // sources.reset();
                     _.each(response.toJSON(), function (item) {
-                        sources.reset();
-                        _.each(item.data, function (source) {
-                            sourceCollection.add(source);
-                            existingIPs.push(source.ip);
-                        });
+                        // sourceCollection.add(item);
+                        existingIPs.push(item.ip);
+                        var tagArray = getTagsArrayFromString(item.tags);
+                        addTagsArrayToExistingTags(tagArray);
                     });
-                    app.sourceList = sourceCollection;
+                    // app.sourceList = sourceCollection;
+                    updateTypeAhead();
 
-                    // if ( app.currentView ) app.currentView.close();
                     $('.sources-list').html(new SourceListView({model:app.sourceList}).render().el);
-                    $('.content').hide();
-                    $('.table').show();
-                    $('.header').show();
+                    setListView();
                     if (callback) callback();
                 }});
         }
